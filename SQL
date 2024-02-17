@@ -1,0 +1,83 @@
+--what are the components of Entity, Code columns and then both
+SELECT  Entity,Code
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health` 
+LIMIT 1000
+--to check if Ghana is in the set
+SELECT *
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Ghana'
+--to Extract Nigeria data
+SELECT *
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Nigeria'
+----to extract UK data
+SELECT *
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'United Kingdom'
+--find the Sum of Nigeria alcohol disorder
+SELECT SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS Alcohol_total
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Nigeria'
+--find the Sum of Ghana alcohol disorder
+SELECT SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS Alcohol_total
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Ghana'
+--find the Sum of UK alcohol disorder
+SELECT SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS Alcohol_total
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'United Kingdom'
+--find the mean of Nigeria alcohol disorder
+SELECT AVG(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS mean_alcohol
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Nigeria'
+--find the mean of Ghana alcohol disorder
+SELECT AVG(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS Mean_alcohol
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Ghana'
+--find the mean of UK alcohol disorder
+SELECT AVG(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS Mean_alcohol
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'United Kingdom'
+--find the cumsum for Ghana
+SELECT SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) OVER (ORDER BY(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_)) AS Alcohol_cumsum
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Ghana'
+--find the cumsum for Nigeria
+SELECT SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) OVER (ORDER BY(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_)) AS Alcohol_cumsum
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Nigeria'
+--find the cumsum for UK
+SELECT SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) OVER (ORDER BY(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_)) AS Alcohol_cumsum
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'United Kingdom'
+--sort the depressive disorders in the 3 entities in descending order
+SELECT Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Ghana'
+ORDER BY Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_ DESC
+--nigeria
+SELECT Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'Nigeria'
+ORDER BY Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_ DESC
+--UK
+SELECT Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+WHERE Entity = 'United Kingdom'
+ORDER BY Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_ DESC
+
+--find the sum of depressive disorder for each country in the dataset
+SELECT SUM(Prevalence___Depressive_disorders___Sex__Both___Age__Age_standardized__Percent_),Entity
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+GROUP BY Entity
+--find the sum of 3 categories for each entity
+SELECT Entity, SUM(Prevalence___Alcohol_use_disorders___Sex__Both___Age__Age_standardized__Percent_) AS Total_alcohol,
+SUM(Prevalence___Anxiety_disorders___Sex__Both___Age__Age_standardized__Percent_) AS total_anxiety,
+SUM(Prevalence___Schizophrenia___Sex__Both___Age__Age_standardized__Percent_) AS Total_Schizophrenia
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+GROUP BY Entity
+--find the total of each entity for schizophrenia and sort in desc order
+SELECT Entity,SUM(Prevalence___Schizophrenia___Sex__Both___Age__Age_standardized__Percent_) AS Total_Schiz
+FROM `sustained-tree-322112.mental_health.prevalence_mental_health`
+GROUP BY Entity
+ORDER BY Total_Schiz DESC
